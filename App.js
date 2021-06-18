@@ -78,17 +78,6 @@ const App = () => {
   const [tasks, setTasks] = useState([]);
   const [text, setText] = useState('');
 
-  const renderItem = ({item}) => {
-    return (
-      <Item
-        text={item.task}
-        completed={item.completed}
-        onCheckPress={() => console.log('check pressed')}
-        onDeletePress={() => console.log('delete pressed')}
-      />
-    );
-  };
-
   const addTask = () => {
     if (text.length === 0) {
       return;
@@ -103,6 +92,32 @@ const App = () => {
       },
     ]);
     setText('');
+  };
+
+  const toggle = id => {
+    setTasks(
+      tasks.map(item => {
+        if (item.id === id) {
+          return {
+            ...item,
+            completed: !item.completed,
+          };
+        }
+
+        return item;
+      }),
+    );
+  };
+
+  const renderItem = ({item}) => {
+    return (
+      <Item
+        text={item.task}
+        completed={item.completed}
+        onCheckPress={() => toggle(item.id)}
+        onDeletePress={() => console.log('delete pressed')}
+      />
+    );
   };
 
   return (
