@@ -109,13 +109,17 @@ const App = () => {
     );
   };
 
+  const deleteItem = id => {
+    setTasks(tasks.filter(item => item.id !== id));
+  };
+
   const renderItem = ({item}) => {
     return (
       <Item
         text={item.task}
         completed={item.completed}
         onCheckPress={() => toggle(item.id)}
-        onDeletePress={() => console.log('delete pressed')}
+        onDeletePress={() => deleteItem(item.id)}
       />
     );
   };
